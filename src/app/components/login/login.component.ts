@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +12,12 @@ import { LoginService } from '../../services/login.service';
 export class LoginComponent implements OnInit {
   private loginService = inject(LoginService);
   private router = inject(Router);
-
   ngOnInit(): void {
-    this.loginService.handleLogin();
+    if (!this.loginService.isLogged()) {
+      this.loginService.handleLogin();
+    } else {
+      this.router.navigate(['home']);
+    }
   }
 
   Login() {
