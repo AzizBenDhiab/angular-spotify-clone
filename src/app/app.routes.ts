@@ -9,4 +9,25 @@ export const routes: Routes = [
         (m) => m.LoginComponent
       ),
   },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./components/search/search.component').then(
+        (m) => m.SearchComponent
+      ),
+  },
+  {
+    path: 'home/search',
+    loadComponent: () =>
+      import('./components/search/search.component').then(
+        (m) => m.SearchComponent
+      ),
+  },
+  {
+    path: 'test',
+    loadComponent: () =>
+      import('./components/test/test.component').then(
+        (m) => m.TestListItemComponent
+      ),
+  },
 ];

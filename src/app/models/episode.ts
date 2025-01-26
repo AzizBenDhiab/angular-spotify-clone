@@ -3,7 +3,7 @@ export interface Episode {
   description: string;
   duration_ms: number;
   id: string;
-  imageUrl: any;
+  imageUrl: string;
   is_playable: boolean;
   name: string;
   release_date: string;

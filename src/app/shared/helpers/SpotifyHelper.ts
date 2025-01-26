@@ -42,12 +42,27 @@ export function SpotifyPlaylist(
 export function SpotifyPlaylistDetails(
   playlist: SpotifyApi.PlaylistObjectFull
 ): Playlist {
+  // Check if playlist or any required properties are null or undefined
+  if (!playlist || !playlist.owner || !playlist.owner.id) {
+    console.warn('Invalid playlist data:', playlist);
+    return {
+      id: '',
+      name: '',
+      imageUrl: '',
+      snapshot_id: '',
+      songs: [],
+      owner: '',
+    }; // Return a default empty Playlist object if the data is invalid
+  }
+
   return {
-    id: playlist.id,
-    name: playlist.name,
+    id: playlist.id || '', // If playlist.id is null/undefined, default to empty string
+    name: playlist.name || '', // Default to empty string if name is null/undefined
     imageUrl: getFirstImageUrl(playlist.images),
-    snapshot_id: playlist.snapshot_id,
-    songs: playlist.tracks.items?.map((item) => SpotifyTrack(item.track)),
+    snapshot_id: playlist.snapshot_id || '', // Default to empty string if snapshot_id is null/undefined
+    songs: playlist.tracks.items
+      ? playlist.tracks.items.map((item) => SpotifyTrack(item.track))
+      : [], // Ensure items exists before mapping
     owner: playlist.owner.id,
   };
 }

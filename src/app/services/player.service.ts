@@ -5,6 +5,9 @@ import { Playlist } from '../models/playlist';
 import { Artist } from '../models/artist';
 import { Album } from '../models/album';
 import { User } from '../models/user';
+import { Audiobook } from '../models/audiobook';
+import { Show } from '../models/show';
+import { Episode } from '../models/episode';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +18,28 @@ export class PlayerService {
   private currentSong = new BehaviorSubject<Song | null>(null);
   public currentSong$ = this.currentSong.asObservable();
   private showAllSource = new BehaviorSubject<
-    Playlist[] | Artist[] | Album[] | User[] | null
+    | Playlist[]
+    | Artist[]
+    | User[]
+    | Audiobook[]
+    | Show[]
+    | Episode[]
+    | Album[]
+    | null
   >([]);
+
   showAll$ = this.showAllSource.asObservable();
 
-  setShowAll(showAll: Playlist[] | Artist[] | Album[] | User[] | null): void {
+  setShowAll(
+    showAll:
+      | Playlist[]
+      | Artist[]
+      | User[]
+      | Audiobook[]
+      | Show[]
+      | Episode[]
+      | Album[]
+  ): void {
     this.showAllSource.next(showAll);
   }
 

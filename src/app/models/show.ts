@@ -1,6 +1,6 @@
 export interface Show {
   id: string;
-  imageUrl: any;
+  imageUrl: string;
   name: string;
   publisher: string;
 }
