@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, OnInit, signal, computed } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  signal,
+  computed,
+  ChangeDetectorRef,
+} from '@angular/core';
 import {
   faClock,
   faEllipsis,
@@ -34,31 +42,44 @@ export class MusicListComponent implements OnInit, OnChanges {
   deleteIcon = faTrash;
 
   showMore = signal<boolean>(false); // Signal to track "show more" state
-  
-  displayedSongs = computed(() =>
-    this.showMore() ? (this.songs || []) : (this.songs?.slice(0, 5) || [])
-  );
+
+  displayedSongs = computed(() => {
+    const songs = this.showMore()
+      ? this.songs || []
+      : this.songs?.slice(0, 5) || [];
+    //   console.log('Computed songs:', songs);
+    return songs;
+  });
 
   constructor(
     public playerService: PlayerService,
     public playlistService: PlaylistService,
     private toast: ToastrService,
+    private cdr: ChangeDetectorRef,
+
     private spotifyService: SpotifyService
   ) {}
 
   ngOnInit(): void {
     // Initial state
     this.showMore.set(false);
-    console.log(this.songs)
+    // console.log('MusicListComponent INIT', {
+    //   songs: this.songs,
+    //   songsLength: this.songs?.length,
+    // });
   }
 
   ngOnChanges(): void {
-    // Reset when input changes to default collapsed state
-    this.showMore.set(false);
+    this.cdr.detectChanges(); // Force change detection
   }
 
   toggleShowMore(): void {
+    console.log('Clicked show more');
+    console.log('Current songs:', this.songs);
+    console.log('Current show more state:', this.showMore());
     this.showMore.set(!this.showMore());
+    console.log('New show more state:', this.showMore());
+    console.log('New displayed songs:', this.displayedSongs());
   }
 
   getArtists(song: Song): string {

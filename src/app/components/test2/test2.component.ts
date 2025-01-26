@@ -1,22 +1,38 @@
 import { Component } from '@angular/core';
 import { Song } from '../../models/song';
 import { MusicListComponent } from '../music-list/music-list.component';
+import { Playlist } from '../../models/playlist';
 
 @Component({
   selector: 'app-test2',
   standalone: true,
   imports: [MusicListComponent],
   template: `
-    <app-music-list [songs]="dummySongs"></app-music-list>
+    <app-music-list
+      [songs]="dummySongs"
+      [playlist]="dummyPlaylist"
+    ></app-music-list>
   `,
 })
 export class Test2Component {
+  dummyPlaylist: Playlist = {
+    id: 'spotify:playlist:37i9dQZF1DXcBWIGoYBM5M',
+    name: 'Daily Mix 1',
+    imageUrl: 'https://via.placeholder.com/300',
+    snapshot_id: 'some-unique-snapshot-id',
+    songs: null, // or you could populate with the dummySongs from previous example
+    owner: 'spotify',
+  };
   dummySongs: Song[] = [
     {
       id: '1',
       title: 'Song One',
       artists: [{ id: 'a1', name: 'Artist One' }],
-      album: { id: 'al1', name: 'Album One', imageUrl: 'https://via.placeholder.com/150' },
+      album: {
+        id: 'al1',
+        name: 'Album One',
+        imageUrl: 'https://via.placeholder.com/150',
+      },
       time: '3:45',
       previewUrl: 'https://www.example.com/song1.mp3',
       addedAt: '2025-01-26',
@@ -27,7 +43,11 @@ export class Test2Component {
       id: '2',
       title: 'Song Two',
       artists: [{ id: 'a2', name: 'Artist Two' }],
-      album: { id: 'al2', name: 'Album Two', imageUrl: 'https://via.placeholder.com/150' },
+      album: {
+        id: 'al2',
+        name: 'Album Two',
+        imageUrl: 'https://via.placeholder.com/150',
+      },
       time: '4:12',
       previewUrl: 'https://www.example.com/song2.mp3',
       addedAt: '2025-01-25',
@@ -38,7 +58,11 @@ export class Test2Component {
       id: '3',
       title: 'Song Three',
       artists: [{ id: 'a3', name: 'Artist Three' }],
-      album: { id: 'al3', name: 'Album Three', imageUrl: 'https://via.placeholder.com/150' },
+      album: {
+        id: 'al3',
+        name: 'Album Three',
+        imageUrl: 'https://via.placeholder.com/150',
+      },
       time: '5:01',
       previewUrl: 'https://www.example.com/song3.mp3',
       addedAt: '2025-01-24',
@@ -49,7 +73,11 @@ export class Test2Component {
       id: '4',
       title: 'Song Four',
       artists: [{ id: 'a4', name: 'Artist Four' }],
-      album: { id: 'al4', name: 'Album Four', imageUrl: 'https://via.placeholder.com/150' },
+      album: {
+        id: 'al4',
+        name: 'Album Four',
+        imageUrl: 'https://via.placeholder.com/150',
+      },
       time: '2:58',
       previewUrl: 'https://www.example.com/song4.mp3',
       addedAt: '2025-01-23',
@@ -60,7 +88,11 @@ export class Test2Component {
       id: '5',
       title: 'Song Five',
       artists: [{ id: 'a5', name: 'Artist Five' }],
-      album: { id: 'al5', name: 'Album Five', imageUrl: 'https://via.placeholder.com/150' },
+      album: {
+        id: 'al5',
+        name: 'Album Five',
+        imageUrl: 'https://via.placeholder.com/150',
+      },
       time: '3:30',
       previewUrl: 'https://www.example.com/song5.mp3',
       addedAt: '2025-01-22',
@@ -71,7 +103,11 @@ export class Test2Component {
       id: '6',
       title: 'Song Six',
       artists: [{ id: 'a6', name: 'Artist Six' }],
-      album: { id: 'al6', name: 'Album Six', imageUrl: 'https://via.placeholder.com/150' },
+      album: {
+        id: 'al6',
+        name: 'Album Six',
+        imageUrl: 'https://via.placeholder.com/150',
+      },
       time: '4:20',
       previewUrl: 'https://www.example.com/song6.mp3',
       addedAt: '2025-01-21',
@@ -82,12 +118,16 @@ export class Test2Component {
       id: '7',
       title: 'Song Seven',
       artists: [{ id: 'a7', name: 'Artist Seven' }],
-      album: { id: 'al7', name: 'Album Seven', imageUrl: 'https://via.placeholder.com/150' },
+      album: {
+        id: 'al7',
+        name: 'Album Seven',
+        imageUrl: 'https://via.placeholder.com/150',
+      },
       time: '3:10',
       previewUrl: 'https://www.example.com/song7.mp3',
       addedAt: '2025-01-20',
       uri: 'spotify:track:7',
       isLiked: true,
-    }
+    },
   ];
 }
