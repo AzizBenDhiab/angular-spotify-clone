@@ -3,6 +3,7 @@ import { User } from '../../models/user';
 import { Artist } from '../../models/artist';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-menu-user-item',
   standalone: true,

@@ -28,6 +28,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   .profile-container {
     display: flex;
     align-items: center;

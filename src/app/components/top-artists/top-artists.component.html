@@ -1,0 +1,9 @@
+<span class="title title-md"> Top 10 Artists</span>
+<div class="playlist-scroll">
+    <app-menu-user-item
+    *ngFor="let artist of artists$ | async"
+    class="mt-2"
+    [user]="artist"
+    >
+    </app-menu-user-item>
+</div>

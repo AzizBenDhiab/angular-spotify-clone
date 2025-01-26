@@ -1,22 +1,16 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import { provideToastr } from 'ngx-toastr';
-import { ToastrModule } from 'ngx-toastr';
-import Aura from '@primeng/themes/aura';
 import {
   AuthentificationInterceptorProvider,
   AuthInterceptor,
 } from './interceptor/auth.interceptor';
+import { provideToastr } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideClientHydration } from '@angular/platform-browser';
+import Aura from '@primeng/themes/aura';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { authInterceptor } from './interceptors/auth.interceptor';
 import { providePrimeNG } from 'primeng/config';
 
 export const appConfig: ApplicationConfig = {
