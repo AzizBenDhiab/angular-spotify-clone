@@ -11,23 +11,6 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    loadComponent: () =>
-      import('./components/search/search.component').then(
-        (m) => m.SearchComponent
-      ),
-  },
-  {
-    path: 'home/search',
-    loadComponent: () =>
-      import('./components/search/search.component').then(
-        (m) => m.SearchComponent
-      ),
-  },
-  {
-    path: 'test',
-    loadComponent: () =>
-      import('./components/test/test.component').then(
-        (m) => m.TestListItemComponent
-      ),
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
 ];
