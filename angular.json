@@ -22,7 +22,9 @@
             "styles": [
               "src/styles.css",
               "bootstrap/dist/css/bootstrap.min.css",
-              "font-awesome/css/font-awesome.min.css"
+              "font-awesome/css/font-awesome.min.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeng/resources/themes/lara-light-indigo/theme.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
