@@ -1,5 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -11,5 +12,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),
+    provideToastr({
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      timeOut: 3000,
+    }),
   ],
 };

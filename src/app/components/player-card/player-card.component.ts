@@ -4,11 +4,12 @@ import {
 } from '@angular/core';
 import { Song } from '../../models/song';
 import { PlayerService } from '../../services/player.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-player-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './player-card.component.html',
   styleUrl: './player-card.component.css',
 })
