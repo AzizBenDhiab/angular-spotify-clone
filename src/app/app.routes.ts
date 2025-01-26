@@ -13,4 +13,18 @@ export const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
+{    path: 'music',
+    loadComponent: () =>
+      import('./components/test2/test2.component').then(
+        (m) => m.Test2Component
+      ),
+  },
+  {
+    path: 'header',
+    loadComponent: () =>
+      import('./components/test3/test3.component').then(
+        (m) => m.Test3Component
+      ),
+  },
+  
 ];
