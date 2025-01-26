@@ -58,12 +58,8 @@ export class PlaylistService {
   }
 
   isCurrentUserOwner(playlist: Playlist): Observable<boolean> {
-    return this.loginService.currentUser$.pipe(
-      switchMap((user) => {
-        const currentUserId = user?.id;
+    const currentUserId = this.loginService.currentUser()?.id;
         return of(currentUserId === playlist.owner);
-      })
-    );
   }
 
   isSongInPlaylist(song: Song): Observable<boolean | undefined> {
