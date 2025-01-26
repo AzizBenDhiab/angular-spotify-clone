@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { RightPanelComponent } from '../components/right-panel/right-panel.component';
+import { LeftPanelComponent } from '../components/left-panel/left-panel.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { RightPanelComponent } from '../components/right-panel/right-panel.compo
   imports: [
     CommonModule,
     HomeRoutingModule,
-    RightPanelComponent
+    RightPanelComponent,
+    LeftPanelComponent
   ]
 })
 export class HomeModule { }

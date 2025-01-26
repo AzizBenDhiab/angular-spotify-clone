@@ -3,8 +3,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import {
   AuthentificationInterceptorProvider,
-  AuthInterceptor,
-} from './interceptor/auth.interceptor';
+} from './interceptors/auth.interceptor';
 import { provideToastr } from 'ngx-toastr';
 import { ToastrModule } from 'ngx-toastr';
 import { provideHttpClient, withInterceptorsFromDi, withInterceptors, withFetch } from '@angular/common/http';
@@ -18,8 +17,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(withInterceptorsFromDi()), // Only use this once
-    AuthentificationInterceptorProvider, // Ensure this is added to handle interceptors
+    provideHttpClient(withInterceptorsFromDi()),
+    AuthentificationInterceptorProvider,
     provideToastr({
       timeOut: 3000,
       positionClass: 'toast-top-right',
