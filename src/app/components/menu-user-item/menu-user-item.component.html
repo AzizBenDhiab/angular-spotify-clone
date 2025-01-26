@@ -1,0 +1,12 @@
+<div class="flex container">
+  <!-- Vérifier si l'utilisateur a une image de profil -->
+  <img *ngIf="user && user.imageUrl" [src]="user.imageUrl" alt="Profile Image" class="profile-image" />
+
+  <!-- Si l'utilisateur n'a pas d'image, afficher la première lettre dans un cercle -->
+  <div *ngIf="user && !user.imageUrl" class="profile-circle">
+    {{ user.name?.charAt(0)?.toUpperCase() }}
+  </div>
+
+  <span>{{ user.name | titlecase }}</span>
+  <ng-content class="icon" />
+</div>
