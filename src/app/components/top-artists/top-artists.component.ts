@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 import { Artist } from '../../models/artist';
 import { SpotifyService } from '../../services/spotify-service.service';
+import { MenuUserItemComponent } from '../menu-user-item/menu-user-item.component';
 
 @Component({
   selector: 'app-top-artists',
   standalone: true,
-  imports: [],
+  imports: [
+    MenuUserItemComponent
+  ],
   templateUrl: './top-artists.component.html',
   styleUrl: './top-artists.component.css',
 })
