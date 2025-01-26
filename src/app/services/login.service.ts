@@ -10,7 +10,7 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class LoginService {
-  private currentUser = signal<User | null>(null);
+  public currentUser = signal<User | null>(null);
   public isLogged = computed(() => !!this.currentUser());
   private spotifyApiUrl = spotifyConfiguration.spotifyApiBaseUrl;
 

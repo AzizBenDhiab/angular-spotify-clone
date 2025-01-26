@@ -1,0 +1,25 @@
+<div class="card p-20">
+    <div class="playlist-title flex">
+      <ng-container *ngIf="verified">
+        <span class="verified-badge">
+          <i class="fas fa-check-circle"></i>
+          Verified
+        </span>
+      </ng-container>
+      <span class="title title-md">
+        {{ name }}
+      </span>
+      <ng-container
+        *ngIf="followers !== null && followers !== undefined && followers !== ''"
+      >
+        {{ followers }} followers
+      </ng-container>
+      <!-- <button class="btn btn-success btn-sm px-4 py-2 rounded-pill mt-3">
+        follow
+      </button> -->
+    </div>
+    <div class="image"
+         [ngStyle]="{'background-image': 'url(' + (imageUrl) + ')'}">
+    </div>
+  </div>
+  
