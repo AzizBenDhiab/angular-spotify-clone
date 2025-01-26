@@ -7,7 +7,7 @@ import {
 } from './interceptor/auth.interceptor';
 import { provideToastr } from 'ngx-toastr';
 import { ToastrModule } from 'ngx-toastr';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withInterceptors, withFetch } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import Aura from '@primeng/themes/aura';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
   }),
     importProvidersFrom(ToastrModule.forRoot()),provideHttpClient(
       withFetch(),
-      withInterceptors([authInterceptor])
+      withInterceptorsFromDi()
     ),
   ],
 };
