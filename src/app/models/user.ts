@@ -1,5 +1,5 @@
 export interface User {
   id: string;
-  imageUrl: string | undefined;
+  imageUrl: string;
   name: string | undefined;
 }

@@ -1,0 +1,24 @@
+.hovered .absolute {
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Add this to ensure that the card height stays consistent */
+.card-container {
+  min-height: 300px; /* Adjust the height as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-image {
+  height: 200px; /* You can adjust this height to match your design */
+  object-fit: cover; /* Ensure the image is cropped properly */
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Fill the remaining space in the card */
+}

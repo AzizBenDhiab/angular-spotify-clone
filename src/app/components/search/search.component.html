@@ -1,0 +1,124 @@
+<div class="container">
+  <div id="searchId" class="container-fluid p-2">
+    <div class="d-flex align-items-center">
+      <div class="search-section__btn-container"></div>
+      <div class="ml-3 w-50">
+        <form [formGroup]="searchForm">
+          <div class="input-group">
+            <input
+              type="text"
+              formControlName="search"
+              class="form-control"
+              id="inputSearch"
+              placeholder="Search for tracks, artists, or albums"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <ul class="nav nav-tabs d-flex">
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showAll')"
+            >
+              All
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showArtists')"
+            >
+              Artists
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showAlbums')"
+            >
+              Albums
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showPlaylists')"
+            >
+              Playlists
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showEpisodes')"
+            >
+              Episodes
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showShows')"
+            >
+              Shows
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Sections -->
+  <!-- Artists Section -->
+  <app-list-item
+    [title]="'Artists'"
+    [shouldApplyRoundedClass]="true"
+    [items]="artists$ | async"
+    *ngIf="toggleStates()[0]"
+  ></app-list-item>
+
+  <!-- Playlists Section -->
+  <app-list-item
+    [title]="'Playlists'"
+    [shouldApplyRoundedClass]="false"
+    [items]="playlists$ | async"
+    *ngIf="toggleStates()[2]"
+  ></app-list-item>
+
+  <!-- Albums Section -->
+  <app-list-item
+    [title]="'Albums'"
+    [shouldApplyRoundedClass]="false"
+    [items]="albums$ | async"
+    *ngIf="toggleStates()[1]"
+  ></app-list-item>
+
+  <!-- Episodes Section -->
+  <app-list-item
+    [title]="'Episodes'"
+    [shouldApplyRoundedClass]="false"
+    [items]="episodes$ | async"
+    *ngIf="toggleStates()[3]"
+  ></app-list-item>
+
+  <!-- Shows Section -->
+  <app-list-item
+    [title]="'Shows'"
+    [shouldApplyRoundedClass]="false"
+    [items]="shows$ | async"
+    *ngIf="toggleStates()[4]"
+  ></app-list-item>
+  <app-list-item
+    [title]="'AudioBooks'"
+    [shouldApplyRoundedClass]="false"
+    [items]="audiobooks$ | async"
+    *ngIf="toggleStates()[1]"
+  ></app-list-item>
+</div>

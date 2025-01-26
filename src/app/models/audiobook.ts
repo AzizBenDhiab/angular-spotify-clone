@@ -5,7 +5,7 @@ export interface Audiobook {
   edition: string;
   explicit: boolean;
   id: string;
-  imageUrl: any;
+  imageUrl: string;
   name: string;
   narrators: Narrator[];
   total_chapters: number;

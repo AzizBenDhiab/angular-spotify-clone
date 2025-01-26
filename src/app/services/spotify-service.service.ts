@@ -102,7 +102,6 @@ export class SpotifyService {
     );
   }
 
-  
   getSavedTracks(offset = 0, limit = 50): Observable<Song[]> {
     const url = `${this.spotifyApiUrl}/me/tracks?offset=${offset}&limit=${limit}`;
     return this.http.get<any>(url).pipe(
@@ -139,7 +138,7 @@ export class SpotifyService {
   }
   searchForItems(
     term: string,
-    searchTypes: string[], 
+    searchTypes: string[],
     offset = 0,
     limit = 50
   ): Observable<{
