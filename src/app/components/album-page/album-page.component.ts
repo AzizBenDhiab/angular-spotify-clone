@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
 import { Song } from '../../models/song';
 import { Album } from '../../models/album';
 
@@ -18,17 +17,34 @@ import { CommonModule } from '@angular/common';
     PlaylistHeaderComponent,
     MusicListComponent,
     ListItemComponent,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './album-page.component.html',
   styleUrl: './album-page.component.css',
 })
-export class AlbumPageComponent {
-  album$!: Observable<Album>;
-  albumTracks$!: Observable<Song[]>;
+export class AlbumPageComponent implements OnInit {
+  // Define signals with initial values
+  album = signal<Album | undefined>(undefined);
+  albumName = computed(() => 
+    this.album()?.name ?? 'No name available'
+  );
+  albumImage = computed(() => {
+    return (
+      this.album()?.imageUrl ??
+      'https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large?v=v2&px=999'
+    );
+  });
+  albumReleaseDate = computed(() => {
+    return this.album()?.release_date ?? 'No date available';
+  });
+  albumTracks = signal<Song[]>([]);
+  moreAlbumsFromTheSameArtists = signal<Album[]>([]);
+  artistName = computed(() => {
+    const name = this.album()?.artists[0]?.name;
+    return 'More By ' + (name ?? 'Artist');
+  });
 
   artistId: string = '';
-  moreAlbumsFromTheSameArtists$!: Observable<Album[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,21 +53,29 @@ export class AlbumPageComponent {
   ) {}
 
   ngOnInit(): void {
-    this.album$ = this.route.paramMap.pipe(
-      switchMap((params) =>
-        this.spotifyService.getAlbumtDetails(params.get('id'))
-      )
-    );
+    // Convert route params to signal and handle updates
+    this.route.paramMap.subscribe((params) => {
+      const albumId = params.get('id');
+      const artistId = params.get('artistId');
 
-    this.albumTracks$ = this.route.paramMap.pipe(
-      switchMap((params) =>
-        this.spotifyService.getAlbumTracks(params.get('id'))
-      )
-    );
-    this.moreAlbumsFromTheSameArtists$ = this.route.paramMap.pipe(
-      switchMap((params) =>
-        this.artistService.getArtistAlbums(params.get('artistId'))
-      )
-    );
+      if (albumId) {
+        // Update album details
+        this.spotifyService
+          .getAlbumtDetails(albumId)
+          .subscribe((albumData) => this.album.set(albumData));
+
+        // Update album tracks
+        this.spotifyService
+          .getAlbumTracks(albumId)
+          .subscribe((tracks) => this.albumTracks.set(tracks));
+      }
+
+      if (artistId) {
+        // Update more albums from the same artist
+        this.artistService
+          .getArtistAlbums(artistId)
+          .subscribe((albums) => this.moreAlbumsFromTheSameArtists.set(albums));
+      }
+    });
   }
 }

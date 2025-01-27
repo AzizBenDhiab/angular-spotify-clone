@@ -1,15 +1,15 @@
-<div class="album-profile" *ngIf="album$ | async as album">
+<div class="album-profile" *ngIf="album()">
   <app-playlist-header
-    [name]="album.name"
-    [imageUrl]="album.imageUrl"
-    [followers]="album.release_date"
+    [name]="albumName()"
+    [imageUrl]="albumImage()"
+    [followers]="albumReleaseDate()"
     [verified]="true"
     class="mt-2 d-block"
   ></app-playlist-header>
 
 
   <div class="topTracks">
-    <app-music-list [songs]="albumTracks$ | async" />
+    <app-music-list [songs]="albumTracks()" />
   </div>
   <div class="Albums">
     <app-list-item
@@ -19,8 +19,8 @@
   </div>
   <div class="relatedArtists" >
     <app-list-item
-      [title]="'More By '+ album.artists[0].name"
-      [items]="moreAlbumsFromTheSameArtists$ | async"
+      [title]="'More By '+ artistName()"
+      [items]="moreAlbumsFromTheSameArtists()"
       [shouldApplyRoundedClass]="true"
     ></app-list-item>
   </div>
