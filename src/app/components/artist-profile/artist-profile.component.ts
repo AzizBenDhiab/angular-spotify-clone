@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
 import { Artist } from '../../models/artist';
 import { Song } from '../../models/song';
 import { Album } from '../../models/album';
@@ -10,7 +9,6 @@ import { MusicListComponent } from '../music-list/music-list.component';
 import { ListItemComponent } from '../list-item/list-item.component';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-artist-profile',
   standalone: true,
@@ -18,17 +16,22 @@ import { CommonModule } from '@angular/common';
     PlaylistHeaderComponent,
     MusicListComponent,
     ListItemComponent,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './artist-profile.component.html',
   styleUrl: './artist-profile.component.css',
 })
 export class ArtistProfileComponent implements OnInit {
-  artist$!: Observable<Artist>;
-  topTracks$!: Observable<Song[]>;
-  artistId: string = '';
-  relatedArtists$!: Observable<Artist[]>;
-  albums$!: Observable<Album[]>;
+  // Initialize signals with default values
+  artist = signal<Artist | undefined>(undefined);
+  topTracks = signal<Song[]>([]);
+  relatedArtists = signal<Artist[]>([]);
+  albums = signal<Album[]>([]);
+
+  // Computed signals for derived values
+  artistName = computed(() => this.artist()?.name ?? '');
+  artistImage = computed(() => this.artist()?.images[0]?.url ?? '');
+  followerCount = computed(() => this.artist()?.followers.total ?? 0);
 
   constructor(
     private route: ActivatedRoute,
@@ -36,23 +39,31 @@ export class ArtistProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.artist$ = this.route.paramMap.pipe(
-      switchMap((params) =>
-        this.artistService.getArtistDetails(params.get('id'))
-      )
-    );
-    this.topTracks$ = this.route.paramMap.pipe(
-      switchMap((params) => this.artistService.getTopTracks(params.get('id')))
-    );
-    this.relatedArtists$ = this.route.paramMap.pipe(
-      switchMap((params) =>
-        this.artistService.getRelatedArtists(params.get('id'))
-      )
-    );
-    this.albums$ = this.route.paramMap.pipe(
-      switchMap((params) =>
-        this.artistService.getArtistAlbums(params.get('id'))
-      )
-    );
+    // Subscribe to route params and update signals
+    this.route.paramMap.subscribe((params) => {
+      const artistId = params.get('id');
+
+      if (artistId) {
+        // Update artist details
+        this.artistService
+          .getArtistDetails(artistId)
+          .subscribe((artistData) => this.artist.set(artistData));
+
+        // Update top tracks
+        this.artistService
+          .getTopTracks(artistId)
+          .subscribe((tracks) => this.topTracks.set(tracks));
+
+        // Update related artists
+        this.artistService
+          .getRelatedArtists(artistId)
+          .subscribe((artists) => this.relatedArtists.set(artists));
+
+        // Update albums
+        this.artistService
+          .getArtistAlbums(artistId)
+          .subscribe((albums) => this.albums.set(albums));
+      }
+    });
   }
 }

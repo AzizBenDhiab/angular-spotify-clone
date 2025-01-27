@@ -1,26 +1,28 @@
-<div class="artist-profile" *ngIf="artist$ | async as artist">
+<div class="artist-profile" *ngIf="artist()">
   <app-playlist-header
-    [name]="artist.name"
-    [imageUrl]="artist.images[0]?.url"
-    [followers]="artist.followers.total"
+    [name]="artistName()"
+    [imageUrl]="artistImage()"
+    [followers]="followerCount()"
     [verified]="true"
     class="mt-2 d-block"
   ></app-playlist-header>
-
+  
   <div class="topTracks">
-    <app-music-list [songs]="topTracks$ | async" />
+    <app-music-list [songs]="topTracks()" />
   </div>
+
   <div class="Albums">
     <app-list-item
       [title]="'Album'"
-      [items]="albums$ | async"
+      [items]="albums()"
       [shouldApplyRoundedClass]="false"
     ></app-list-item>
   </div>
+
   <div class="relatedArtists">
     <app-list-item
       [title]="'Fans also like'"
-      [items]="relatedArtists$ | async"
+      [items]="relatedArtists()"
       [shouldApplyRoundedClass]="true"
     ></app-list-item>
   </div>
