@@ -5,7 +5,7 @@ import { catchError, EMPTY, map, Observable } from 'rxjs';
 import { Song } from '../../models/song';
 import { SpotifyAlbum, SpotifyArtist, SpotifyTrack } from '../../shared/helpers/SpotifyHelper';
 import { Artist } from '../../models/artist';
-import { Album } from '../../models/spotifySearch';
+import { Album } from '../../models/album';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,9 @@ export class ArtisteProfileService {
   private apiUrl = spotifyConfiguration.spotifyApiBaseUrl;
   private genericRoute = `${this.apiUrl}/artists/`;
   constructor(private http: HttpClient) {}
-  getArtistDetails(artistId: string | undefined): Observable<any> {
-    const url = `$${this.genericRoute}${artistId}`;
+  getArtistDetails(artistId: string | null): Observable<any> {
+    const url = `${this.genericRoute}${artistId}`;
+    console.log(url);
 
     return this.http.get<any>(url);
   }
