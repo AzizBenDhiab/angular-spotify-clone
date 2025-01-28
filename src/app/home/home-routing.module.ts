@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { AlbumPageComponent } from '../components/album-page/album-page.component';
 import { SearchComponent } from '../components/search/search.component';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { SavedTrackComponent } from '../components/saved-track/saved-track.component';
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
+      {
+        path: 'album/:id/:artistId',
+        component: AlbumPageComponent,
+      },
       { path: 'savedTracks', component: SavedTrackComponent },
       { path: 'playlist/:id', component: PlaylistDetailsComponent },
       { path: 'search/showMore', component: ShowAllComponent },
