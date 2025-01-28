@@ -1,0 +1,108 @@
+.results-container {
+  margin-top: 1rem;
+  max-height: 600px; /* Constrain height to prevent overflow */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); /* Responsive grid */
+  gap: 15px;
+}
+
+.song-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #222;
+  border-radius: 8px;
+  padding: 15px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.song-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.song-card.selected {
+  border: 2px solid #1db954; /* Highlight currently selected song */
+}
+
+.album-art {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.song-info {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.song-title {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.artist,
+.album {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.add-btn {
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  height: 40px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-btn:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.no-results {
+  text-align: center;
+  margin-top: 1rem;
+  color: #888;
+  font-size: 1rem;
+}
+
+.dark-input {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: darkgray;
+  color: white;
+  padding-left: 30px;
+}
+
+.input-container {
+  position: relative;
+  width: 74%;
+  outline: none !important;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: darkgray;
+}
