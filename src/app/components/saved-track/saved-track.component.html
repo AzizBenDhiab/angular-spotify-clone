@@ -10,7 +10,6 @@
   />
   
   <div *ngIf="(spotifyService.playlistSongs$ | async) as songs; else loading">
-    <p *ngIf="songs.length > 0">Loaded {{ songs.length }} songs</p>
     <p *ngIf="songs.length === 0">No songs available</p>
     <app-music-list [songs]="songs"></app-music-list>
   </div>

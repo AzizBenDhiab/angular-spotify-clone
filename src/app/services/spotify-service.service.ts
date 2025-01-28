@@ -53,7 +53,7 @@ export class SpotifyService {
     private loginService: LoginService,
     private toastr: ToastrService
   ) {}
-
+  
   getUserPlaylists(
     userId: string | undefined,
     offset = 0,
