@@ -1,0 +1,20 @@
+<div class="songs">
+  <app-playlist-header
+    [name]="'Liked Songs'"
+    [imageUrl]="
+      'https://i.scdn.co/image/ab67706c0000da8470d229cb865e8d81cdce0889'
+    "
+    class="mt-2 d-block"
+    [totalSongs]="(spotifyService.playlistSongs$ | async)?.length ?? 0"
+    [totalDuration]="totalDuration"
+  />
+  
+  <div *ngIf="(spotifyService.playlistSongs$ | async) as songs; else loading">
+    <p *ngIf="songs.length === 0">No songs available</p>
+    <app-music-list [songs]="songs"></app-music-list>
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading songs...</p>
+  </ng-template>
+</div>

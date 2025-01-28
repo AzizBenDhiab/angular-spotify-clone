@@ -1,25 +1,38 @@
-<div class="card p-20">
-    <div class="playlist-title flex">
-      <ng-container *ngIf="verified">
-        <span class="verified-badge">
-          <i class="fas fa-check-circle"></i>
-          Verified
-        </span>
-      </ng-container>
-      <span class="title title-md">
-        {{ name }}
-      </span>
-      <ng-container
-        *ngIf="followers !== null && followers !== undefined && followers !== ''"
-      >
-        {{ followers }} followers
-      </ng-container>
-      <!-- <button class="btn btn-success btn-sm px-4 py-2 rounded-pill mt-3">
-        follow
-      </button> -->
+<div class="card p-10 rounded-lg shadow-lg text-white" 
+     style="background: linear-gradient(175deg, #7d7b7b 0%, #353535 100%)">
+  <!-- Playlist Header -->
+  <div class="playlist-header flex items-center gap-6">
+    <!-- Playlist Image -->
+    <div class="image-container relative">
+      <img
+        [src]="imageUrl || 'https://via.placeholder.com/300'"
+        alt="Playlist Image"
+        class="playlist-image w-52 h-52 rounded-md shadow-lg object-cover"
+      />
     </div>
-    <div class="image"
-         [ngStyle]="{'background-image': 'url(' + (imageUrl) + ')'}">
+
+    <!-- Playlist Details -->
+    <div class="details">
+      <!-- Playlist Type -->
+      <div class="playlist-type text-gray-400 text-sm uppercase mb-2">
+        Playlist
+      </div>
+
+      <!-- Playlist Name -->
+      <h1 class="title text-6xl font-bold leading-tight mb-3">
+        {{ name || 'Untitled Playlist' }}
+      </h1>
+
+      <!-- Playlist Metadata -->
+      <div class="metadata text-gray-400 text-lg flex items-center gap-2">
+        <span class="creator-name font-semibold">
+          {{ ownerDisplayName }}
+        </span>
+        <span class="separator">•</span>
+        <span class="track-info">
+          {{ totalSongs }} songs, {{ totalDuration }}
+        </span>
+      </div>
     </div>
   </div>
-  
+</div>

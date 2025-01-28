@@ -54,19 +54,30 @@ export function SpotifyPlaylistDetails(
       owner: '',
     }; // Return a default empty Playlist object if the data is invalid
   }
+  const songs = playlist.tracks.items
+  ? playlist.tracks.items.map((item) => SpotifyTrack(item.track))
+  : [];
 
+const totalSongs = songs.length;
+const totalDurationMs = songs.reduce(
+  (acc, song) => acc + (song.time ? parseDuration(song.time) : 0),
+  0
+);
   return {
-    id: playlist.id || '', // If playlist.id is null/undefined, default to empty string
-    name: playlist.name || '', // Default to empty string if name is null/undefined
+    id: playlist.id || '',
+    name: playlist.name || '',
     imageUrl: getFirstImageUrl(playlist.images),
-    snapshot_id: playlist.snapshot_id || '', // Default to empty string if snapshot_id is null/undefined
-    songs: playlist.tracks.items
-      ? playlist.tracks.items.map((item) => SpotifyTrack(item.track))
-      : [], // Ensure items exists before mapping
+    snapshot_id: playlist.snapshot_id || '',
+    songs,
     owner: playlist.owner.id,
+    totalSongs,
+    totalDuration: convertTime(totalDurationMs), // Convert to "mm:ss" format
   };
 }
-
+function parseDuration(duration: string): number {
+  const [minutes, seconds] = duration.split(':').map(Number);
+  return minutes * 60 * 1000 + seconds * 1000;
+}
 export function SpotifyTrack(
   track: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull
 ): Song {

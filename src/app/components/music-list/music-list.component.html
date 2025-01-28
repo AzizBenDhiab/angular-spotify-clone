@@ -3,7 +3,7 @@
 
   <table class="custom-table mt-3">
     <thead>
-      <tr class="mb-4">
+      <tr class="table-header">
         <th class="w-5">#</th>
         <th class="w-25">Title</th>
         <th class="w-16">Artist</th>
@@ -11,17 +11,20 @@
           <fa-icon class="clock" [icon]="clockIcon"></fa-icon>
         </th>
         <th class="w-16">Album</th>
+        <th class="w-8">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr
         *ngFor="let song of displayedSongs()"
         [class.selected-song]="(playerService.currentSong$ | async) === song"
+        (click)="PlaySong(song)"
       >
         <td>
           <fa-icon
             [icon]="playIcon"
             class="playIcon"
+            title="Play Song"
             (click)="PlaySong(song)"
           ></fa-icon>
         </td>
@@ -30,12 +33,15 @@
         <td>{{ song.time }}</td>
         <td>{{ song.album.name }}</td>
 
-        <td>
-          <div *ngIf="!song.isLiked">
-            <i class="fa-regular fa-heart" (click)="addToLikedSongs(song)"></i>
+        <td class="actions">
+          <div class="like-icon" *ngIf="!song.isLiked">
+            <i class="fa-regular fa-heart" title="Add to Liked" (click)="addToLikedSongs(song)"></i>
           </div>
-          <div *ngIf="song.isLiked">
-            <i class="fa fa-heart-o" (click)="removeFromLikedSongs(song)"></i>
+          <div class="like-icon" *ngIf="song.isLiked">
+            <i class="fa fa-heart" title="Remove from Liked" (click)="removeFromLikedSongs(song)"></i>
+          </div>
+          <div class="more-options">
+            <fa-icon [icon]="moreIcon" title="More Options"></fa-icon>
           </div>
         </td>
       </tr>

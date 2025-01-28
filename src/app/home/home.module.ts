@@ -6,7 +6,8 @@ import { HomeComponent } from './home.component';
 import { RightPanelComponent } from '../components/right-panel/right-panel.component';
 import { LeftPanelComponent } from '../components/left-panel/left-panel.component';
 import { SearchComponent } from '../components/search/search.component';
-import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
+import { ProfilePageComponent } from '../components/profile-page/profile-page.component';import { SavedTrackComponent } from '../components/saved-track/saved-track.component';
+
 
 @NgModule({
   declarations: [HomeComponent],
@@ -17,6 +18,7 @@ import { ProfilePageComponent } from '../components/profile-page/profile-page.co
     LeftPanelComponent,
     SearchComponent,
     ProfilePageComponent,
+    SavedTrackComponent
   ],
 })
 export class HomeModule {}
