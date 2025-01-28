@@ -1,0 +1,11 @@
+<div class="accueil">
+    <app-list-item
+      [title]="'Top Artists '"
+      [items]="userTopArtists$ | async"
+    ></app-list-item>
+
+    <app-list-item
+      [title]="'newReleases '"
+      [items]="newReleases$ | async"
+    ></app-list-item>
+  </div>
