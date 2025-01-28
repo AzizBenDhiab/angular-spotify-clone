@@ -1,0 +1,51 @@
+<div class="title title-bg mt-4">Find your next favorite song</div>
+
+<div class="input-container">
+  <fa-icon [icon]="searchIcon" class="search-icon"></fa-icon>
+  <input
+    class="dark-input"
+    type="text"
+    [formControl]="searchControl"
+    placeholder="Search for songs or artists"
+  />
+</div>
+
+<div
+  class="results-container mt-3"
+  *ngIf="searchResults$ | async as searchResults"
+>
+  <div *ngIf="searchResults.tracks.length > 0; else noResults">
+    <div class="card-grid">
+      <div
+        class="song-card"
+        *ngFor="let song of searchResults.tracks"
+        [class.selected]="(playerService.currentSong$ | async) === song"
+      >
+        <img
+          (click)="PlaySong(song)"
+          [src]="song.album.imageUrl"
+          [alt]="song.album.name"
+          class="album-art"
+        />
+        <div class="song-info">
+          <p class="song-title">{{ song.title }}</p>
+          <p class="artist">{{ getArtists(song) }}</p>
+          <p class="album">{{ song.album.name }}</p>
+        </div>
+        <button
+          (click)="AddItem(song)"
+          [disabled]="playlistService.isSongInPlaylist(song) | async"
+          class="add-btn"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noResults>
+    <p class="no-results">
+      No results found. Try searching for something else!
+    </p>
+  </ng-template>
+</div>

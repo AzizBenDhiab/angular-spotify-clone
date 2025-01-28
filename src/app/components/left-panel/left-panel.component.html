@@ -100,7 +100,7 @@
       <app-menu-item
         *ngFor="let playlist of playlists"
         [contenu]="playlist.name"
-        [routerLink]="['playlist', playlist.id]"
+        [routerLink]="['/home/playlist', playlist.id]"
       >
         <fa-icon [icon]="playlistIcon"></fa-icon>
       </app-menu-item>

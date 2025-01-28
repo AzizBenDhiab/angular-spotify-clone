@@ -45,8 +45,14 @@
   
   .image-container {
     cursor: pointer;
+    position: relative;
+    top: -20px; 
   }
-  
+  .playlist-image {
+    width: 13rem;  /* You can adjust the width as needed */
+    height: 13rem; /* Keep the height the same for a square image */
+    object-fit: cover;
+  }
   .image {
     background-size: cover;
     background-position: center;
@@ -82,4 +88,5 @@
     z-index: 1000;
     overflow: hidden;
   }
+  
   
