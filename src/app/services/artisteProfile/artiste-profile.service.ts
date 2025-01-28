@@ -14,8 +14,9 @@ export class ArtisteProfileService {
   private apiUrl = spotifyConfiguration.spotifyApiBaseUrl;
   private genericRoute = `${this.apiUrl}/artists/`;
   constructor(private http: HttpClient) {}
-  getArtistDetails(artistId: string | undefined): Observable<any> {
-    const url = `$${this.genericRoute}${artistId}`;
+  getArtistDetails(artistId: string | null): Observable<any> {
+    const url = `${this.genericRoute}${artistId}`;
+    console.log(url);
 
     return this.http.get<any>(url);
   }
