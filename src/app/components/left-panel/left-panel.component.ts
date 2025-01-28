@@ -11,7 +11,14 @@ import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Observable, switchMap, tap } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGuitar, faHome, faMusic, faPlus, faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faGuitar,
+  faHome,
+  faMusic,
+  faPlus,
+  faSearch,
+  faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from '../../services/login.service';
 import { SpotifyService } from '../../services/spotify-service.service';
 import { PlaylistService } from '../../services/playlist/playlist.service';
@@ -25,7 +32,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
   selector: 'app-left-panel',
   standalone: true,
   imports: [
-    CommonModule,  // Use CommonModule here
+    CommonModule,
     RouterModule,
     ReactiveFormsModule,
     FontAwesomeModule,
@@ -37,9 +44,9 @@ import { animate, style, transition, trigger } from '@angular/animations';
     trigger('dialogAnimation', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 }))
-      ])
-    ])
+        animate('300ms', style({ opacity: 1 })),
+      ]),
+    ]),
   ],
   templateUrl: './left-panel.component.html',
   styleUrls: ['./left-panel.component.css'],

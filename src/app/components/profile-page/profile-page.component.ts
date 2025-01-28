@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Artist } from '../../models/artist';
 import { User } from '../../models/user';
-import { Playlist } from '../../models/playlist'; // Assuming you have a Playlist model
+import { Playlist } from '../../models/playlist';
 import { SpotifyService } from '../../services/spotify-service.service';
 import { PlaylistHeaderComponent } from '../playlist-header/playlist-header.component';
 import { ListItemComponent } from '../list-item/list-item.component';
@@ -15,23 +15,22 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./profile-page.component.css'],
 })
 export class ProfilePageComponent implements OnInit {
-  profile = signal<User | null>(null); // Signal for user profile
-  artists = signal<Artist[]>([]); // Signal for followed artists
-  playlists = signal<Playlist[]>([]); // Signal for user playlists
-  userId = signal<string | undefined>(undefined); // Signal for user ID
+  profile = signal<User | null>(null);
+  artists = signal<Artist[]>([]);
+  playlists = signal<Playlist[]>([]);
+  userId = signal<string | undefined>(undefined);
 
   constructor(private spotifyService: SpotifyService) {}
 
   ngOnInit(): void {
     console.log('init');
 
-    // Get user data from local storage and parse it
     const storedUser = localStorage.getItem('user');
 
     if (storedUser) {
       try {
         const user = JSON.parse(storedUser);
-        this.userId.set(user?.id); // Set user ID signal
+        this.userId.set(user?.id);
       } catch (error) {
         console.error('Error parsing user data from localStorage', error);
       }
@@ -39,28 +38,24 @@ export class ProfilePageComponent implements OnInit {
 
     console.log(this.userId());
 
-    // Fetch data if userId is available
     if (this.userId()) {
-      // Fetch user profile
       this.spotifyService.getUserProfile(this.userId()).subscribe({
         next: (userProfile) => {
-          this.profile.set(userProfile); // Update profile signal
+          this.profile.set(userProfile);
         },
         error: (err) => console.error('Error fetching profile:', err),
       });
 
-      // Fetch followed artists
       this.spotifyService.getFollowedArtists().subscribe({
         next: (followedArtists) => {
-          this.artists.set(followedArtists); // Update artists signal
+          this.artists.set(followedArtists);
         },
         error: (err) => console.error('Error fetching artists:', err),
       });
 
-      // Fetch user playlists
       this.spotifyService.getUserPlaylists(this.userId()).subscribe({
         next: (userPlaylists) => {
-          this.playlists.set(userPlaylists); // Update playlists signal
+          this.playlists.set(userPlaylists);
         },
         error: (err) => console.error('Error fetching playlists:', err),
       });

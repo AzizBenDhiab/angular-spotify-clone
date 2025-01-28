@@ -12,6 +12,6 @@ import { RouterModule, Router } from '@angular/router';
 export class MenuItemComponent {
   constructor(private router: Router) {}
 
-  @Input() contenu = ''; // Input for the button label
-  @Input() routerLink: string | any[] = []; // Input for the router link
+  @Input() contenu = '';
+  @Input() routerLink: string | any[] = [];
 }

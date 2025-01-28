@@ -43,16 +43,13 @@ export class SearchComponent {
   private location = inject(Location);
   private route = inject(ActivatedRoute);
 
-  // FontAwesome icons
   angle = faAngleLeft;
   searchIcon = faSearch;
 
-  // Search form with strong typing
   searchForm = new FormGroup({
     search: new FormControl<string>(''),
   });
 
-  // Signals for better state management
   toggleStates = signal<boolean[]>([true, true, true, true, true, true]);
   items$:
     | Observable<{
@@ -73,20 +70,18 @@ export class SearchComponent {
   audiobooks$: Observable<Audiobook[]> | undefined;
   tracks$: Observable<Song[]> | undefined;
   ngOnInit(): void {
-    // Subscribe to the new `events` observable for form state changes
     this.searchForm.statusChanges.subscribe((status) => {
-      console.log('Form Status:', status); // Valid, Invalid, Pending, etc.
+      console.log('Form Status:', status);
     });
 
     this.searchForm.valueChanges.subscribe((value) => {
       console.log('Form Value:', value);
     });
 
-    // Set up your search logic with valueChanges, debounce, and error handling
     this.items$ = this.searchForm.get('search')?.valueChanges?.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      filter((term): term is string => term !== null), // Ensure term is not null
+      filter((term): term is string => term !== null),
       switchMap((term: string) => {
         return this.spotifyService
           .searchForItems(term, [
@@ -154,7 +149,6 @@ export class SearchComponent {
       albums: Album[];
     }>;
 
-    // Assign specific streams to separate variables
     this.artists$ = this.items$.pipe(map((data) => data.artists));
     this.tracks$ = this.items$.pipe(map((data) => data.tracks));
     this.playlists$ = this.items$.pipe(map((data) => data.playlists));
@@ -164,7 +158,6 @@ export class SearchComponent {
     this.albums$ = this.items$.pipe(map((data) => data.albums));
   }
 
-  // Section toggling with signals
   toggleSection(section: string): void {
     switch (section) {
       case 'showAll':

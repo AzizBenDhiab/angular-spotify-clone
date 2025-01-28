@@ -53,7 +53,7 @@ export class SpotifyService {
     private loginService: LoginService,
     private toastr: ToastrService
   ) {}
-  
+
   getUserPlaylists(
     userId: string | undefined,
     offset = 0,
@@ -150,7 +150,6 @@ export class SpotifyService {
     audiobooks: Audiobook[];
     albums: Album[];
   }> {
-    // Ensure all search types are valid before constructing the URL
     const validSearchTypes = [
       'audiobook',
       'artist',
@@ -254,14 +253,13 @@ export class SpotifyService {
     limit: number = 20,
     offset: number = 0
   ): Observable<Artist[]> {
-    
-
     const url = `${this.spotifyApiUrl}/me/top/artists?time_range=${timeRange}&limit=${limit}&offset=${offset}`;
-  
+
     return this.http.get<any>(url).pipe(
       map((response) => {
-    return response.items.map((item: any) => SpotifyArtist(item)) as Artist[];
-        
+        return response.items.map((item: any) =>
+          SpotifyArtist(item)
+        ) as Artist[];
       }),
       catchError((error) => {
         this.toastr.error(`Error fetching top artists from the API`);
@@ -277,11 +275,12 @@ export class SpotifyService {
     offset: number = 0
   ): Observable<Album[]> {
     const url = `${this.spotifyApiUrl}/browse/new-releases?country=${country}&limit=${limit}&offset=${offset}`;
-  
+
     return this.http.get<any>(url).pipe(
       map((response) => {
-        // Transform the albums in the response to Album model
-        return response.albums.items.map((album: any) => SpotifyAlbum(album)) as Album[];
+        return response.albums.items.map((album: any) =>
+          SpotifyAlbum(album)
+        ) as Album[];
       }),
       catchError((error) => {
         this.toastr.error('Error fetching new releases from the API');
@@ -290,6 +289,4 @@ export class SpotifyService {
       })
     );
   }
-
-
 }

@@ -23,12 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-add-song',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FontAwesomeModule,
-    // Add this
-  ],
+  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './add-song.component.html',
   styleUrl: './add-song.component.css',
 })
@@ -87,7 +82,7 @@ export class AddSongComponent implements OnInit, OnChanges {
         }),
         catchError((error) => {
           this.toast.error('Error adding item to the playlist');
-          throw error; // Rethrow the error for further handling, if needed
+          throw error;
         })
       )
       .subscribe();

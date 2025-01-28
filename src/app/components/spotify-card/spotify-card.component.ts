@@ -17,10 +17,7 @@ import { ErrorImagePipe } from '../../pipe/error-image.pipe';
   styleUrl: './spotify-card.component.css',
 })
 export class SpotifyCardComponent {
-  // Define a signal for hover state
-  isHovered = signal<boolean>(false); // Reactive signal
-
-  // Define a computed signal for derived hover class
+  isHovered = signal<boolean>(false);
   hoveredClass = computed(() => (this.isHovered() ? 'hovered' : ''));
 
   @Input() cardData!:
@@ -35,7 +32,6 @@ export class SpotifyCardComponent {
 
   constructor(private router: Router) {}
 
-  // Navigating based on card type
   navigate() {
     if ('followers' in this.cardData) {
       this.router.navigate(['/home/artist', this.cardData.id]);
@@ -52,17 +48,14 @@ export class SpotifyCardComponent {
     }
   }
 
-  // Toggle hover state
   toggleHover(isHovered: boolean): void {
-    this.isHovered.set(isHovered); // Update the signal value
+    this.isHovered.set(isHovered);
   }
 
-  // Check if the card data is an album
   isAlbum(cardData: Album | User | Playlist | Artist): cardData is Album {
     return (cardData as Album)?.release_date !== undefined;
   }
 
-  // Check if the card is either an album or episode
   isAlbumOrEpisode(
     cardData: User | Playlist | Artist | Show | Album | Audiobook | Episode
   ): cardData is Album | Episode {

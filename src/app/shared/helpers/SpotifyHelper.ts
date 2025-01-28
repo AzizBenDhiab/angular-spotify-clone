@@ -42,7 +42,6 @@ export function SpotifyPlaylist(
 export function SpotifyPlaylistDetails(
   playlist: SpotifyApi.PlaylistObjectFull
 ): Playlist {
-  // Check if playlist or any required properties are null or undefined
   if (!playlist || !playlist.owner || !playlist.owner.id) {
     console.warn('Invalid playlist data:', playlist);
     return {
@@ -52,32 +51,21 @@ export function SpotifyPlaylistDetails(
       snapshot_id: '',
       songs: [],
       owner: '',
-    }; // Return a default empty Playlist object if the data is invalid
+    };
   }
-  const songs = playlist.tracks.items
-  ? playlist.tracks.items.map((item) => SpotifyTrack(item.track))
-  : [];
 
-const totalSongs = songs.length;
-const totalDurationMs = songs.reduce(
-  (acc, song) => acc + (song.time ? parseDuration(song.time) : 0),
-  0
-);
   return {
     id: playlist.id || '',
     name: playlist.name || '',
     imageUrl: getFirstImageUrl(playlist.images),
     snapshot_id: playlist.snapshot_id || '',
-    songs,
+    songs: playlist.tracks.items
+      ? playlist.tracks.items.map((item) => SpotifyTrack(item.track))
+      : [],
     owner: playlist.owner.id,
-    totalSongs,
-    totalDuration: convertTime(totalDurationMs), // Convert to "mm:ss" format
   };
 }
-function parseDuration(duration: string): number {
-  const [minutes, seconds] = duration.split(':').map(Number);
-  return minutes * 60 * 1000 + seconds * 1000;
-}
+
 export function SpotifyTrack(
   track: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull
 ): Song {

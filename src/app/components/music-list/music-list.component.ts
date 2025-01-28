@@ -41,13 +41,12 @@ export class MusicListComponent implements OnInit, OnChanges {
   saveIcon = faSave;
   deleteIcon = faTrash;
 
-  showMore = signal<boolean>(false); // Signal to track "show more" state
+  showMore = signal<boolean>(false);
 
   displayedSongs = computed(() => {
     const songs = this.showMore()
       ? this.songs || []
       : this.songs?.slice(0, 5) || [];
-    //   console.log('Computed songs:', songs);
     return songs;
   });
 
@@ -61,16 +60,11 @@ export class MusicListComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    // Initial state
     this.showMore.set(false);
-    // console.log('MusicListComponent INIT', {
-    //   songs: this.songs,
-    //   songsLength: this.songs?.length,
-    // });
   }
 
   ngOnChanges(): void {
-    this.cdr.detectChanges(); // Force change detection
+    this.cdr.detectChanges();
   }
 
   toggleShowMore(): void {
