@@ -5,6 +5,8 @@
       'https://i.scdn.co/image/ab67706c0000da8470d229cb865e8d81cdce0889'
     "
     class="mt-2 d-block"
+    [totalSongs]="(spotifyService.playlistSongs$ | async)?.length ?? 0"
+    [totalDuration]="totalDuration"
   />
   
   <div *ngIf="(spotifyService.playlistSongs$ | async) as songs; else loading">

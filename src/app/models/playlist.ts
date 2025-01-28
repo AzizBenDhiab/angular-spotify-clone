@@ -7,4 +7,7 @@ export interface Playlist {
   snapshot_id: string;
   songs: Song[] | null;
   owner: string;
+  totalSongs?: number; 
+  totalDuration?: string;
+  ownerDisplayName?: string; 
 }
