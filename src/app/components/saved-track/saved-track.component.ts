@@ -1,37 +1,46 @@
-import { Component } from '@angular/core';
-import { Song } from '../../models/song';
+import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from '../../services/spotify-service.service';
-import {Observable, switchMap,} from 'rxjs';
-import {ActivatedRoute} from "@angular/router";
-import { map } from 'rxjs/operators';
-import {PlaylistService} from "../../services/playlist/playlist.service";
-import { PlaylistHeaderComponent } from '../playlist-header/playlist-header.component';
 import { MusicListComponent } from '../music-list/music-list.component';
 import { CommonModule } from '@angular/common';
+import { PlaylistHeaderComponent } from '../playlist-header/playlist-header.component';
+import { switchMap, map } from 'rxjs';
 
 @Component({
   selector: 'app-saved-track',
   standalone: true,
-  providers: [SpotifyService],  
-  imports: [PlaylistHeaderComponent,MusicListComponent, CommonModule],
+  providers: [SpotifyService],
+  imports: [MusicListComponent, PlaylistHeaderComponent, CommonModule],
   templateUrl: './saved-track.component.html',
-  styleUrl: './saved-track.component.css'
+  styleUrls: ['./saved-track.component.css']
 })
-export class SavedTrackComponent {
-  constructor(
-    public spotifyService: SpotifyService,
-  ) {}
-  totalDuration: string = '';  
+export class SavedTrackComponent implements OnInit {
+  totalDuration: string = '';
+  ownerDisplayName: string = '';  // Display the owner's name
+
+  constructor(public spotifyService: SpotifyService) {}
+
   ngOnInit() {
-    this.spotifyService.getSavedTracks().subscribe({
+    // Fetch the current user's profile
+    this.spotifyService.getUserProfile('me').pipe(
+      switchMap((userProfile) => {
+        // Set the user's display name (or fallback to "Unknown" if not found)
+        this.ownerDisplayName = userProfile.name || 'Unknown'; 
+        
+        // Fetch saved tracks after user info
+        return this.spotifyService.getSavedTracks();
+      })
+    ).subscribe({
       next: (songs) => {
         console.log('Songs loaded:', songs);
         this.spotifyService.updatePlaylistSongs(songs);
         this.totalDuration = this.getTotalDuration(songs);
       },
-      error: (err) => console.error('Error loading saved tracks:', err)
+      error: (err) => {
+        console.error('Error loading saved tracks:', err);
+      }
     });
 
+    // Optionally subscribe to updated playlist songs
     this.spotifyService.playlistSongs$.subscribe((songs) => {
       console.log('Updated songs in observable:', songs);
       this.totalDuration = this.getTotalDuration(songs);
@@ -39,8 +48,8 @@ export class SavedTrackComponent {
   }
 
   getTotalDuration(songs: any[] | null): string {
-    if (!songs || songs.length === 0) return '';
-    
+    if (!songs || songs.length === 0) return '0 mins';
+
     let totalSeconds = 0;
     songs.forEach((song) => {
       if (song?.time) {
@@ -51,7 +60,7 @@ export class SavedTrackComponent {
       }
     });
 
-    if (totalSeconds === 0) return '';
+    if (totalSeconds === 0) return '0 mins'; // Prevent "NaN mins" bug
 
     const minutes = Math.floor(totalSeconds / 60);
     const hours = Math.floor(minutes / 60);
@@ -59,5 +68,4 @@ export class SavedTrackComponent {
 
     return hours > 0 ? `${hours} hrs ${remainingMinutes} mins` : `${minutes} mins`;
   }
-
 }
