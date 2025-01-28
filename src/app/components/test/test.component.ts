@@ -1,46 +1,15 @@
 import { Component } from '@angular/core';
-import { ListItemComponent } from '../list-item/list-item.component';
-import { Playlist } from '../../models/playlist';
-import { Artist } from '../../models/artist';
+import { AddSongComponent } from '../add-song/add-song.component';
 
 @Component({
-  selector: 'app-test',
+  selector: 'app-dummy-add-song',
   standalone: true,
-  imports: [ListItemComponent],
+  imports: [AddSongComponent],
   template: `
-    <app-list-item
-      [items]="testArtists"
-      [title]="'Test Playlist'"
-      [shouldApplyRoundedClass]="true"
-    ></app-list-item>
+    <div>
+      <h1>Test Add Song Feature</h1>
+      <app-add-song [playlistId]="'testPlaylistId'"></app-add-song>
+    </div>
   `,
-  styleUrls: ['./test.component.css'],
 })
-export class TestListItemComponent {
-  // Dummy data with image URLs
-  testArtists: Artist[] = [
-    {
-      id: '1',
-      name: 'Artist 1',
-      followers: { total: 10000 },
-      images: [
-        { url: 'https://via.placeholder.com/150' }, // Assuming 'images' contains objects with URLs
-      ],
-      imageUrl: 'https://via.placeholder.com/150',
-    },
-    {
-      id: '2',
-      name: 'Artist 2',
-      followers: { total: 20000 },
-      images: [{ url: 'https://via.placeholder.com/150' }],
-      imageUrl: 'https://via.placeholder.com/150',
-    },
-    {
-      id: '3',
-      name: 'Artist 3',
-      followers: { total: 30000 },
-      images: [{ url: 'https://via.placeholder.com/150' }],
-      imageUrl: 'https://via.placeholder.com/150',
-    },
-  ];
-}
+export class DummyAddSongComponent {}
