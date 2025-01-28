@@ -5,7 +5,7 @@ import { catchError, EMPTY, map, Observable } from 'rxjs';
 import { Song } from '../../models/song';
 import { SpotifyAlbum, SpotifyArtist, SpotifyTrack } from '../../shared/helpers/SpotifyHelper';
 import { Artist } from '../../models/artist';
-import { Album } from '../../models/spotifySearch';
+import { Album } from '../../models/album';
 
 @Injectable({
   providedIn: 'root'
