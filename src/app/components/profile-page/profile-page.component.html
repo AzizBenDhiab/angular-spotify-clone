@@ -1,13 +1,19 @@
-<div class="Profile" *ngIf="profile$ | async as profile">
+<div class="Profile" *ngIf="profile() as profile">
   <app-playlist-header
     [name]="profile.name!"
     [imageUrl]="profile.imageUrl!"
     [verified]="false"
     class="mt-2 d-block"
   ></app-playlist-header>
+
   <app-list-item
     [title]="'Followed Artists'"
     [shouldApplyRoundedClass]="true"
-    [items]="artist$ | async"
+    [items]="artists()"
+  ></app-list-item>
+  <app-list-item
+    [title]="'My Playlists '"
+    [shouldApplyRoundedClass]="true"
+    [items]="playlists()"
   ></app-list-item>
 </div>
