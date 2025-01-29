@@ -15,7 +15,12 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
+  ): Observable<HttpEvent<unknown>> { 
+    if (typeof window === 'undefined') {
+      console.log('Running on the server');
+    } else {
+      console.log('Running on the client');
+    } 
     const token = localStorage.getItem('access_token');
 
     if (token) {
