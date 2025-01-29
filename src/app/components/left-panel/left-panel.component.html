@@ -1,11 +1,10 @@
 <div class="menus flex flex-display">
-
   <div class="image-container flex flex-display flex-center">
     <img src="assets/images/spotify-logo-1.png" />
   </div>
 
   <div class="menu-container flex options">
-    <app-menu-item [contenu]="'Home'" [routerLink]="['/home/accueil']">
+    <app-menu-item [contenu]="'Home'" [routerLink]="['/home']">
       <fa-icon [icon]="homeIcon"></fa-icon>
     </app-menu-item>
     <app-menu-item [contenu]="'Search'" [routerLink]="['/home/search']">
@@ -51,7 +50,7 @@
                 >
                   Playlist Name
                 </h5>
-               </div>
+              </div>
               <div class="relative flex-auto p-4" data-te-modal-body-ref>
                 <input
                   id="playlist-name"
@@ -63,7 +62,6 @@
               <div
                 class="gap-30 flex flex-row flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50"
               >
-                
                 <button
                   type="button"
                   class="mr-5 border-0 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
@@ -90,7 +88,10 @@
       </form>
     </p-dialog>
 
-    <div class="playlist-scroll" *ngIf="playlistService.playlists$ | async as playlists">
+    <div
+      class="playlist-scroll"
+      *ngIf="playlistService.playlists$ | async as playlists"
+    >
       <app-menu-item
         [contenu]="'Liked Songs'"
         [routerLink]="['/home/savedTracks']"
@@ -109,7 +110,7 @@
 </div>
 
 <div class="user-info">
-  <ng-container *ngIf="loginService.currentUser()  as user">
+  <ng-container *ngIf="loginService.currentUser() as user">
     <app-menu-user-item [user]="user" [routerLink]="['profile', user.id]">
       <fa-icon class="icon" [icon]="signOutIcon" (click)="logout()"></fa-icon>
     </app-menu-user-item>

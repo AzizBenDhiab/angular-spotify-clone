@@ -23,8 +23,10 @@ const routes: Routes = [
       { path: 'profile', component: ProfilePageComponent },
       { path: 'acceuil/showMore', component: ShowAllComponent },
       { path: 'acceuil', component: AccueilComponent },
-      { path: "artist/:id", component: ArtistProfileComponent},
-      { path: 'album/:id/:artistId', component: AlbumPageComponent}
+      { path: 'artist/:id', component: ArtistProfileComponent },
+      { path: 'album/:id/:artistId', component: AlbumPageComponent },
+      { path: 'showMore', component: ShowAllComponent },
+      { path: '', component: AccueilComponent },
     ],
   },
 ];

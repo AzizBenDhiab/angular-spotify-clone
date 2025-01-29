@@ -25,7 +25,7 @@ export class PlaylistHeaderComponent {
   @Input() owner: string = '';
   @Input() ownerDisplayName: string = '';
   @Input() totalSongs: number = 0;
-  @Input() totalDuration: string = '0 mins';
+  @Input() totalDuration: string = '';
   faCheckCircle = faCheckCircle;
   faPen = faPen;
 

@@ -1,6 +1,11 @@
-<div class="flex container">
+<div class="flex container" (click)="goToArtist(user.id)">
   <!-- Vérifier si l'utilisateur a une image de profil -->
-  <img *ngIf="user && user.imageUrl" [src]="user.imageUrl" alt="Profile Image" class="profile-image" />
+  <img
+    *ngIf="user && user.imageUrl"
+    [src]="user.imageUrl"
+    alt="Profile Image"
+    class="profile-image"
+  />
 
   <!-- Si l'utilisateur n'a pas d'image, afficher la première lettre dans un cercle -->
   <div *ngIf="user && !user.imageUrl" class="profile-circle">

@@ -3,9 +3,9 @@ import {
   Input,
   OnChanges,
   OnInit,
+  SimpleChanges,
   signal,
   computed,
-  ChangeDetectorRef,
 } from '@angular/core';
 import {
   faClock,
@@ -26,8 +26,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-music-list',
-  imports: [CommonModule, FontAwesomeModule],
   standalone: true,
+  imports: [CommonModule, FontAwesomeModule],
   templateUrl: './music-list.component.html',
   styleUrl: './music-list.component.css',
 })
@@ -42,29 +42,24 @@ export class MusicListComponent implements OnInit, OnChanges {
   deleteIcon = faTrash;
 
   showMore = signal<boolean>(false);
-
-  displayedSongs = computed(() => {
-    const songs = this.showMore()
-      ? this.songs || []
-      : this.songs?.slice(0, 5) || [];
-    return songs;
-  });
+  displayedSongs = signal<Song[]>([]);
 
   constructor(
     public playerService: PlayerService,
     public playlistService: PlaylistService,
     private toast: ToastrService,
-    private cdr: ChangeDetectorRef,
-
     private spotifyService: SpotifyService
   ) {}
 
   ngOnInit(): void {
-    this.showMore.set(false);
+    this.updateDisplayedSongs();
   }
 
-  ngOnChanges(): void {
-    this.cdr.detectChanges();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['songs']) {
+      console.log('Songs input changed:', this.songs);
+      this.updateDisplayedSongs();
+    }
   }
 
   toggleShowMore(): void {
@@ -72,8 +67,15 @@ export class MusicListComponent implements OnInit, OnChanges {
     console.log('Current songs:', this.songs);
     console.log('Current show more state:', this.showMore());
     this.showMore.set(!this.showMore());
+    this.updateDisplayedSongs();
     console.log('New show more state:', this.showMore());
     console.log('New displayed songs:', this.displayedSongs());
+  }
+
+  updateDisplayedSongs(): void {
+    const allSongs = this.songs || [];
+    this.displayedSongs.set(this.showMore() ? allSongs : allSongs.slice(0, 5));
+    console.log('Updated displayedSongs:', this.displayedSongs());
   }
 
   getArtists(song: Song): string {

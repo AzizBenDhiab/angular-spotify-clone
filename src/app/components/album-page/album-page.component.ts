@@ -23,11 +23,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './album-page.component.css',
 })
 export class AlbumPageComponent implements OnInit {
-  // Define signals with initial values
   album = signal<Album | undefined>(undefined);
-  albumName = computed(() => 
-    this.album()?.name ?? 'No name available'
-  );
+  albumName = computed(() => this.album()?.name ?? 'No name available');
   albumImage = computed(() => {
     return (
       this.album()?.imageUrl ??
@@ -53,25 +50,21 @@ export class AlbumPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Convert route params to signal and handle updates
     this.route.paramMap.subscribe((params) => {
       const albumId = params.get('id');
       const artistId = params.get('artistId');
 
       if (albumId) {
-        // Update album details
         this.spotifyService
           .getAlbumtDetails(albumId)
           .subscribe((albumData) => this.album.set(albumData));
 
-        // Update album tracks
         this.spotifyService
           .getAlbumTracks(albumId)
           .subscribe((tracks) => this.albumTracks.set(tracks));
       }
 
       if (artistId) {
-        // Update more albums from the same artist
         this.artistService
           .getArtistAlbums(artistId)
           .subscribe((albums) => this.moreAlbumsFromTheSameArtists.set(albums));
